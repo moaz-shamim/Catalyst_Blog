@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../slices/authentication/authSlice";
 import { useState } from "react";
 import ThemeBtn from "../ThemeBtn";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -59,13 +60,10 @@ export default function Header() {
   ];
 
   return (
-    <header className="p-4 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100">
+    <header className="p-4 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100 sticky top-0">
       <div className="container flex justify-between h-16 mx-auto  ">
         {/* <Logo width="70px" /> */}
-        <Link
-          to="/ "
-          className="relative right-7 items-center p-2 ml-4   border-purple-400"
-        >
+        <Link to="/ " className="relative right-7 items-center p-2 ml-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -76,45 +74,51 @@ export default function Header() {
             <path d="M22.094 19.451h-0.758c-0.188 0-0.363 0.049-0.515 0.135l0.006-0.004-4.574 2.512-5.282-3.049v-6.082l5.282-3.051 4.576 2.504c0.146 0.082 0.323 0.131 0.508 0.131h0.758c0.293 0 0.529-0.239 0.529-0.531v-0.716c0-0.2-0.11-0.373-0.271-0.463l-0.004-0.002-5.078-2.777c-0.293-0.164-0.645-0.26-1.015-0.26-0.39 0-0.756 0.106-1.070 0.289l0.010-0.006-5.281 3.049c-0.636 0.375-1.056 1.055-1.059 1.834v6.082c0 0.779 0.422 1.461 1.049 1.828l0.009 0.006 5.281 3.049c0.305 0.178 0.67 0.284 1.061 0.284 0.373 0 0.723-0.098 1.027-0.265l-0.012 0.006 5.080-2.787c0.166-0.091 0.276-0.265 0.276-0.465v-0.716c0-0.293-0.238-0.529-0.529-0.529z"></path>
           </svg>
         </Link>
-        <ul className="items-stretch hidden max-md:hidden space-x-3 max-lg:flex lg:flex  ">
+        <ul className="items-stretch hidden max-md:hidden space-x-3 max-lg:flex lg:flex font-medium ">
           {navItems.map((item) =>
             item.active && item.name !== "Login" ? (
-              <li key={item.name}>
-                <button
-                  onClick={() => navigate(item.slug)}
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-violet-600 hover:border-violet-600 dark:text-violet-400 hover:dark:border-violet-400"
-                >
-                  {item.name}
-                </button>
-              </li>
+              <NavLink
+                key={item.name}
+                to={item.slug}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "flex items-center px-4 -mb-1 border-b-2 border-violet-600 dark:border-violet-400 dark:border-transparent text-violet-600 hover:border-violet-600 dark:text-violet-400 hover:dark:border-violet-400"
+                      : "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-violet-600 hover:border-violet-600 dark:text-violet-400 hover:dark:border-violet-400"
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
             ) : null
           )}
 
-          {authStatus && (<select
-            name="pets"
-            id="pet-select"
-            className=" flex items-start border-0 p-0 h-8 w-48  text-violet-600 bg-transparent  border-b-2 border-gray-200 dark:border-transparent dark:text-violet-400 appearance-none focus:outline-none focus:ring-0 focus:border-violet-200 peer hover:border-violet-600 hover:dark:border-violet-400"
-            value={selectedValue}
-            onChange={(event) => {
-              handleSelectChange(event);
-              // Use the callback function to access the updated state value
-              setSelectedValue((prevSelectedValue) => {
-                // Navigate with the updated selectedValue
-                navigate("/", { state: { data: prevSelectedValue } });
-                // Return the new value for the state
-                return prevSelectedValue;
-              });
-            }}
-          >
-            <option value="Web Tech">Web Tech</option>
-            <option value="Tech & Gadgets">Tech & Gadgets</option>
-            <option value="Science & Innovation">Science & Innovation</option>
-            <option value="Personal Finance">Personal Finance</option>
-            <option value="Arts & Culture">Arts & Culture</option>
-            <option value="Travel Dest">Travel Dest</option>
-            <option value="Other">Other</option>
-          </select>)}  
-          
+          {authStatus && (
+            <select
+              name="pets"
+              id="pet-select"
+              className=" flex items-center border-0 p-0  w-48  text-violet-600 bg-transparent  border-b-2 border-gray-200 dark:border-transparent dark:text-violet-400 appearance-none focus:outline-none focus:ring-0 focus:border-violet-200 peer hover:border-violet-600 hover:dark:border-violet-400"
+              value={selectedValue}
+              onChange={(event) => {
+                handleSelectChange(event);
+                // Use the callback function to access the updated state value
+                setSelectedValue((prevSelectedValue) => {
+                  // Navigate with the updated selectedValue
+                  navigate("/", { state: { data: prevSelectedValue } });
+                  // Return the new value for the state
+                  return prevSelectedValue;
+                });
+              }}
+            >
+              <option value="Web Tech">Web Tech</option>
+              <option value="Tech & Gadgets">Tech & Gadgets</option>
+              <option value="Science & Innovation">Science & Innovation</option>
+              <option value="Personal Finance">Personal Finance</option>
+              <option value="Arts & Culture">Arts & Culture</option>
+              <option value="Travel Dest">Travel Dest</option>
+              <option value="Other">Other</option>
+            </select>
+          )}
         </ul>
 
         <div className="flex items-center md:space-x-4  ">
@@ -166,8 +170,6 @@ export default function Header() {
           </ul>
         </div>
 
-
-                
         <button
           title="Open menu"
           type="button"
@@ -192,7 +194,7 @@ export default function Header() {
       </div>
 
       {showMenus && (
-        <div className="hidden max-sm:flex flex-col   dark:border-violet-400  content-center">
+        <div className="hidden max-sm:flex flex-col   dark:border-violet-400  font-medium content-center">
           <ul>
             {navItems.map((item) =>
               item.active && item.name !== "Login" ? (
@@ -207,33 +209,36 @@ export default function Header() {
               ) : null
             )}
 
-            {authStatus && (<select
-              name="pets"
-              id="pet-select"
-              className=" w-full items-center border-0 p-0 my-3  text-violet-600 bg-transparent  border-b-2 border-gray-200 dark:border-transparent dark:text-violet-400 appearance-none focus:outline-none focus:ring-0 focus:border-violet-200 peer hover:border-violet-600 hover:dark:border-violet-400"
-              value={selectedValue}
-              onChange={(event) => {
-                handleSelectChange(event);
-                // Use the callback function to access the updated state value
-                setSelectedValue((prevSelectedValue) => {
-                  // Navigate with the updated selectedValue
-                  navigate("/", {
-                    state: { data: prevSelectedValue },
+            {authStatus && (
+              <select
+                name="pets"
+                id="pet-select"
+                className=" w-full items-center border-0 p-0 my-3  text-violet-600 bg-transparent  border-b-2 border-gray-200 dark:border-transparent dark:text-violet-400 appearance-none focus:outline-none focus:ring-0 focus:border-violet-200 peer hover:border-violet-600 hover:dark:border-violet-400"
+                value={selectedValue}
+                onChange={(event) => {
+                  handleSelectChange(event);
+                  // Use the callback function to access the updated state value
+                  setSelectedValue((prevSelectedValue) => {
+                    // Navigate with the updated selectedValue
+                    navigate("/", {
+                      state: { data: prevSelectedValue },
+                    });
+                    // Return the new value for the state
+                    return prevSelectedValue;
                   });
-                  // Return the new value for the state
-                  return prevSelectedValue;
-                });
-              }}
-            >
-              <option value="Web Tech">Web Tech</option>
-              <option value="Tech & Gadgets">Tech & Gadgets</option>
-              <option value="Science & Innovation">Science & Innovation</option>
-              <option value="Personal Finance">Personal Finance</option>
-              <option value="Arts & Culture">Arts & Culture</option>
-              <option value="Travel Dest">Travel Dest</option>
-              <option value="Other">Other</option>
-            </select>)}    
-            
+                }}
+              >
+                <option value="Web Tech">Web Tech</option>
+                <option value="Tech & Gadgets">Tech & Gadgets</option>
+                <option value="Science & Innovation">
+                  Science & Innovation
+                </option>
+                <option value="Personal Finance">Personal Finance</option>
+                <option value="Arts & Culture">Arts & Culture</option>
+                <option value="Travel Dest">Travel Dest</option>
+                <option value="Other">Other</option>
+              </select>
+            )}
           </ul>
 
           {authStatus && (
@@ -248,45 +253,52 @@ export default function Header() {
         </div>
       )}
 
-      <div className="w-full flex justify-center  mx-auto  ">
+      <div className="w-full flex justify-center  mx-auto font-medium ">
         <ul className="items-stretch hidden max-sm:hidden space-x-3 max-md:flex ">
           {navItems.map((item) =>
             item.active && item.name !== "Login" ? (
-              <li key={item.name}>
-                <button
-                  onClick={() => navigate(item.slug)}
-                  className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
-                >
-                  {item.name}
-                </button>
-              </li>
+              <NavLink
+                key={item.name}
+                to={item.slug}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "flex items-center px-4 -mb-1 border-b-2 border-violet-600 dark:border-violet-400 dark:border-transparent text-violet-600 hover:border-violet-600 dark:text-violet-400 hover:dark:border-violet-400"
+                      : "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-violet-600 hover:border-violet-600 dark:text-violet-400 hover:dark:border-violet-400"
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
             ) : null
           )}
-          {authStatus && ( <select
-            name="pets"
-            id="pet-select"
-            className=" flex items-start border-0 p-0 h-8 w-48  text-violet-600 bg-transparent  border-b-2 border-gray-200 dark:border-transparent dark:text-violet-400 appearance-none focus:outline-none focus:ring-0 focus:border-violet-200 peer hover:border-violet-600 hover:dark:border-violet-400"
-            value={selectedValue}
-            onChange={(event) => {
-              handleSelectChange(event);
-              // Use the callback function to access the updated state value
-              setSelectedValue((prevSelectedValue) => {
-                // Navigate with the updated selectedValue
-                navigate("/", { state: { data: prevSelectedValue } });
-                // Return the new value for the state
-                return prevSelectedValue;
-              });
-            }}
-          >
-            <option value="Web Tech">Web Tech</option>
-            <option value="Tech & Gadgets">Tech & Gadgets</option>
-            <option value="Science & Innovation">Science & Innovation</option>
-            <option value="Personal Finance">Personal Finance</option>
-            <option value="Arts & Culture">Arts & Culture</option>
-            <option value="Travel Dest">Travel Dest</option>
-            <option value="Other">Other</option>
-          </select>)}
-         
+
+          {authStatus && (
+            <select
+              name="pets"
+              id="pet-select"
+              className=" flex items-center border-0 p-0  w-48  text-violet-600 bg-transparent  border-b-2 border-gray-200 dark:border-transparent dark:text-violet-400 appearance-none focus:outline-none focus:ring-0 focus:border-violet-200 peer hover:border-violet-600 hover:dark:border-violet-400"
+              value={selectedValue}
+              onChange={(event) => {
+                handleSelectChange(event);
+                // Use the callback function to access the updated state value
+                setSelectedValue((prevSelectedValue) => {
+                  // Navigate with the updated selectedValue
+                  navigate("/", { state: { data: prevSelectedValue } });
+                  // Return the new value for the state
+                  return prevSelectedValue;
+                });
+              }}
+            >
+              <option value="Web Tech">Web Tech</option>
+              <option value="Tech & Gadgets">Tech & Gadgets</option>
+              <option value="Science & Innovation">Science & Innovation</option>
+              <option value="Personal Finance">Personal Finance</option>
+              <option value="Arts & Culture">Arts & Culture</option>
+              <option value="Travel Dest">Travel Dest</option>
+              <option value="Other">Other</option>
+            </select>
+          )}
         </ul>
       </div>
     </header>

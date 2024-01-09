@@ -16,8 +16,8 @@ export default function Footer() {
                 className={({ isActive }) =>
                   `${
                     isActive
-                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-purple-200 dark:text-purple-400  text-purple-600"
-                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-purple-200 dark:text-purple-400  text-purple-600"
+                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-violet-400 dark:text-violet-400  text-violet-600"
+                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-violet-400 dark:text-violet-400  text-violet-600"
                   }`
                 }
               >
@@ -41,8 +41,8 @@ export default function Footer() {
                 className={({ isActive }) =>
                   `${
                     isActive
-                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-purple-200 dark:text-purple-400  text-purple-600"
-                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-purple-200 dark:text-purple-400  text-purple-600"
+                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-violet-400 dark:text-violet-400  text-violet-600"
+                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-violet-400 dark:text-violet-400  text-violet-600"
                   }`
                 }
               >
@@ -66,8 +66,8 @@ export default function Footer() {
                 className={({ isActive }) =>
                   `${
                     isActive
-                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-purple-200 dark:text-purple-400  text-purple-600"
-                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-purple-200 dark:text-purple-400  text-purple-600"
+                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-violet-400 dark:text-violet-400  text-violet-600"
+                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-violet-400 dark:text-violet-400  text-violet-600"
                   }`
                 }
               >
@@ -95,8 +95,8 @@ export default function Footer() {
                 className={({ isActive }) =>
                   `${
                     isActive
-                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-purple-200 dark:text-purple-400  text-purple-600"
-                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-purple-200 dark:text-purple-400  text-purple-600"
+                      ? "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg border-violet-400 dark:text-violet-400  text-violet-600"
+                      : "flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b border-violet-400 dark:text-violet-400  text-violet-600"
                   }`
                 }
               >
