@@ -8,7 +8,7 @@ export default function AllPosts() {
   const authStatus = useSelector((state) => state.auth.status);
   const [input, setInput] = useState();
 
-  console.log(input);
+  // console.log(input);
 
   useEffect(() => {
     databaseService.getPosts([]).then((posts) => {

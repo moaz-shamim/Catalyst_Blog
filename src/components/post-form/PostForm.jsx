@@ -9,7 +9,7 @@ import { Button, Input, RTE, Select } from "../";
 export default function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
-  console.log(userData);
+  // console.log(userData);
 
 
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -24,7 +24,7 @@ export default function PostForm({ post }) {
     });
 
   const submit = async (data) => {
-    console.log(data);
+    // console.log(data);
     if (post) {
       const file = data.image[0]
         ? await storageService.uploadFile(data.image[0])
@@ -39,7 +39,7 @@ export default function PostForm({ post }) {
         featuredImage: file ? file.$id : undefined,
       });
 
-      console.log(dbPost);
+      // console.log(dbPost);
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
@@ -58,7 +58,7 @@ export default function PostForm({ post }) {
 
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
-          console.log(dbPost);
+          // console.log(dbPost);
         }
       }
     }

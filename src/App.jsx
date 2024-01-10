@@ -15,7 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
 
   const themeMode = useSelector((state) => state.theme.themeMode);
-  console.log(themeMode);
+  // console.log(themeMode);
 
 
 

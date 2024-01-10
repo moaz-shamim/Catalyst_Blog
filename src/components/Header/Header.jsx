@@ -23,7 +23,7 @@ export default function Header() {
     setSelectedValue(event.target.value);
   };
 
-  console.log(selectedValue);
+  // console.log(selectedValue);
 
   const logoutHandler = () => {
     authService.logout().then(() => {

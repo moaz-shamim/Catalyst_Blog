@@ -10,13 +10,13 @@ import { useSelector } from "react-redux";
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const userStatus = useSelector((state) => state.auth.status);
-  console.log(userStatus);
+  // console.log(userStatus);
 
 
   // const [filteredPosts, setfilteredPosts] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+  // console.log(location);
 
   const filteredData = location.state ? location.state.data : null;
 
@@ -24,7 +24,7 @@ export default function Home() {
     ? posts.filter((post) => post.category === filteredData)
     : posts.filter((post) => post.category === "Web Tech");
 
-  console.log(filteredPosts);
+  // console.log(filteredPosts);
 
   // const firstPost = filteredPosts ? filteredPosts[0]:    posts[0];
 
@@ -34,26 +34,24 @@ export default function Home() {
 
   const restPost = filteredPosts.slice(1);
 
-  console.log(restPost);
+  // console.log(restPost);
 
   // console.log(location);
 
-  if (filteredData) {
-    console.log(location.state.data);
-  } else {
-    console.log("data not loaded");
-  }
+  // if (filteredData) {
+  //   console.log(location.state.data);
+  // } else {
+  //   console.log("data not loaded");
+  // }
 
-  console.log(posts);
+  // console.log(posts);
 
   useEffect(() => {
     databaseService.getPosts().then((posts) => {
       if (posts) {
         setPosts(posts.documents);
-        console.log("hey");
       } else {
         setPosts([]);
-        console.log("they");
       }
     });
   }, [userStatus]);

@@ -21,7 +21,7 @@ function EditPost() {
     }
   }, [slug, navigate]);
   
-  console.log(post);
+  // console.log(post);
   
 
   return post ? (
