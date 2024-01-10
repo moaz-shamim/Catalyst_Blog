@@ -34,13 +34,12 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-800 dark:text-gray-100 bg-gray-50 text-gray-800 flex flex-col items-center">
-      {/* <div className="w-1/2 flex justify-center mb-4 relative "> */}
-      <div className="flex flex-col max-w-3xl mx-auto overflow-hidden rounded">
+    <div className="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-800 dark:text-gray-100 bg-gray-50 text-gray-800 flex flex-col items-center prose">
+      <div className="flex flex-col max-w-3xl mx-auto overflow-hidden rounded pb-5">
         <img
           src={storageService.getFilePreview(post.featuredImage)}
           alt={post.title}
-          className="w-full h-60 sm:h-96 dark:bg-gray-500"
+          className="w-full h-60 sm:h-96 dark:bg-gray-500 object-cover"
         />
       </div>
 
