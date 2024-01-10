@@ -6,26 +6,25 @@ import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const userStatus = useSelector((state) => state.auth.status);
+  console.log(userStatus);
+
 
   // const [filteredPosts, setfilteredPosts] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-
   console.log(location);
 
-  
   const filteredData = location.state ? location.state.data : null;
-  
-  const filteredPosts = filteredData ? posts.filter((post)=> post.category === filteredData)
-   : posts.filter((post)=> post.category === "Web Tech"); 
 
+  const filteredPosts = filteredData
+    ? posts.filter((post) => post.category === filteredData)
+    : posts.filter((post) => post.category === "Web Tech");
 
   console.log(filteredPosts);
-
-
 
   // const firstPost = filteredPosts ? filteredPosts[0]:    posts[0];
 
@@ -41,9 +40,8 @@ export default function Home() {
 
   if (filteredData) {
     console.log(location.state.data);
-  }else{
+  } else {
     console.log("data not loaded");
-
   }
 
   console.log(posts);
@@ -52,9 +50,13 @@ export default function Home() {
     databaseService.getPosts().then((posts) => {
       if (posts) {
         setPosts(posts.documents);
+        console.log("hey");
+      } else {
+        setPosts([]);
+        console.log("they");
       }
     });
-  }, []);
+  }, [userStatus]);
 
   if (posts.length === 0) {
     return (
@@ -89,7 +91,6 @@ export default function Home() {
   return (
     <div className="w-full ">
       <section className="dark:bg-gray-800 dark:text-gray-100 bg-gray-100 text-gray-800">
-
         {/* {location.state.data ? :() } */}
         <div className="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
           <Link
@@ -147,9 +148,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-
-
-
       </section>
     </div>
   );
