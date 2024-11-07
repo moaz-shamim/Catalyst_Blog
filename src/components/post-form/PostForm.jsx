@@ -11,7 +11,6 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
   // console.log(userData);
 
-
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -65,7 +64,6 @@ export default function PostForm({ post }) {
   };
 
   const slugTransform = useCallback((value) => {
- 
     if (value && typeof value === "string")
       return value
         .trim()
@@ -134,7 +132,6 @@ export default function PostForm({ post }) {
                 {...register("category", { required: true })}
               />
             </div>
-          
 
             <div className="col-span-full sm:col-span-3">
               <label for="Status">Status:</label>
