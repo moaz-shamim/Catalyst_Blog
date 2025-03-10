@@ -19,7 +19,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-redux": "^9.0.1",
-    "react-router-dom": "^6.20.1"
+    "react-router-dom": "^6.20.1",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",

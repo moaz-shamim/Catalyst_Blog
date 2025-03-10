@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation } from "react-router-dom";
 import authService from "../../appwrite/authentiation";
 import { useDispatch } from "react-redux";
 import { logout } from "../../slices/authentication/authSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThemeBtn from "../ThemeBtn";
 import { NavLink } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export default function Header() {
   const [selectedValue, setSelectedValue] = useState("");
 
   const navigate = useNavigate();
-
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const handleSelectChange = (event) => {
@@ -50,20 +50,26 @@ export default function Header() {
     {
       name: "All Post",
       slug: "/all-posts",
-      active: authStatus,
+      // active: authStatus,
+      active: true,
     },
     {
       name: "Add Post",
       slug: "/add-post",
-      active: authStatus,
+      // active: authStatus,
+      active: true,
     },
   ];
 
+  useEffect(() => {
+    setShowMenus(false);
+  }, [location]); // Runs every time the route changes
+
   return (
-    <header className="p-4 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100 sticky top-0">
-      <div className="container flex justify-between h-16 mx-auto  ">
+    <header className="p-4 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100 sticky top-0 z-50">
+      <div className="container flex justify-between h-16 mx-auto ">
         {/* <Logo width="70px" /> */}
-        <Link to="/ " className="relative right-7 items-center p-2 ml-4">
+        <Link to="/ " className="flex items-center p-2  ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -74,7 +80,7 @@ export default function Header() {
             <path d="M22.094 19.451h-0.758c-0.188 0-0.363 0.049-0.515 0.135l0.006-0.004-4.574 2.512-5.282-3.049v-6.082l5.282-3.051 4.576 2.504c0.146 0.082 0.323 0.131 0.508 0.131h0.758c0.293 0 0.529-0.239 0.529-0.531v-0.716c0-0.2-0.11-0.373-0.271-0.463l-0.004-0.002-5.078-2.777c-0.293-0.164-0.645-0.26-1.015-0.26-0.39 0-0.756 0.106-1.070 0.289l0.010-0.006-5.281 3.049c-0.636 0.375-1.056 1.055-1.059 1.834v6.082c0 0.779 0.422 1.461 1.049 1.828l0.009 0.006 5.281 3.049c0.305 0.178 0.67 0.284 1.061 0.284 0.373 0 0.723-0.098 1.027-0.265l-0.012 0.006 5.080-2.787c0.166-0.091 0.276-0.265 0.276-0.465v-0.716c0-0.293-0.238-0.529-0.529-0.529z"></path>
           </svg>
         </Link>
-        <ul className="items-stretch hidden max-md:hidden space-x-3 max-lg:flex lg:flex font-medium ">
+        <ul className="items-stretch hidden max-md:hidden space-x-3 max-lg:flex lg:flex font-medium  ">
           {navItems.map((item) =>
             item.active && item.name !== "Login" ? (
               <NavLink
@@ -121,7 +127,7 @@ export default function Header() {
           )}
         </ul>
 
-        <div className="flex items-center md:space-x-4  ">
+        <div className="flex items-center md:space-x-4   ">
           {authStatus && (
             <div className="relative flex flex-row ">
               <svg
@@ -159,7 +165,11 @@ export default function Header() {
               item.active && item.name === "Login" ? (
                 <li key={item.name}>
                   <button
-                    onClick={() => navigate(item.slug)}
+                    onClick={() => {
+                      navigate(item.slug)
+                      setShowMenus(false); 
+                    }}
+                    
                     className="hidden px-6 py-2 font-semibold rounded lg:block dark:bg-violet-400 bg-violet-600 dark:text-gray-900 text-gray-100"
                   >
                     {item.name}
@@ -200,7 +210,10 @@ export default function Header() {
               item.active && item.name !== "Login" ? (
                 <li key={item.name}>
                   <button
-                    onClick={() => navigate(item.slug)}
+                    onClick={() => {
+                      navigate(item.slug)
+                      setShowMenus(false); 
+                    }}
                     className="w-full items-center px-4 -mb-1 border-b-2 dark:border-transparent   dark:text-violet-400 text-violet-600 dark:border-violet-400 hover:border-violet-400"
                   >
                     {item.name}
@@ -285,6 +298,7 @@ export default function Header() {
                 setSelectedValue((prevSelectedValue) => {
                   // Navigate with the updated selectedValue
                   navigate("/", { state: { data: prevSelectedValue } });
+                  setShowMenus(false); 
                   // Return the new value for the state
                   return prevSelectedValue;
                 });

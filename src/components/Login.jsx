@@ -6,17 +6,23 @@ import { login as authSliceLogin } from "../slices/authentication/authSlice";
 import { useForm } from "react-hook-form";
 import { Button, Input } from "./index";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // Track loading state
+
 
   // using useForm method that is from react-hook-form
   const { register, handleSubmit } = useForm();
 
   const login = async (data) => {
     setError("");
+    setLoading(true); // Start loading animation
+
 
     try {   
       const session = await authService.login(data);
@@ -24,10 +30,14 @@ export default function Login() {
         const userData = await authService.getCurrentUser();
         // console.log(userData);
         if (userData) dispatch(authSliceLogin({ userData }));
+        toast.success("Logged in Successfully!");
         navigate("/");
       }
     } catch (error) {
       setError(error.message);
+      toast.error(`${error.message}!`);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -88,6 +98,7 @@ export default function Login() {
             <Button
               type="submit"
               className="w-full px-8 py-3 font-semibold rounded-md dark:bg-violet-400 bg-violet-600  dark:text-gray-900"
+              loading={loading}
             >
               Sign in
             </Button>

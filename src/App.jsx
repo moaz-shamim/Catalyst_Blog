@@ -7,6 +7,8 @@ import { login, logout } from "./slices/authentication/authSlice";
 import { Header, Footer } from "./components";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+
 
 
 
@@ -15,11 +17,6 @@ export default function App() {
   const dispatch = useDispatch();
 
   const themeMode = useSelector((state) => state.theme.themeMode);
-  // console.log(themeMode);
-
-
-
-
 
   useEffect(() => {
 
@@ -49,6 +46,19 @@ export default function App() {
         <Outlet />
         </main>
         <Footer />
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={themeMode === "dark" ? "dark" : "light"}
+        />
       </div>
     </div>
   ) : null;

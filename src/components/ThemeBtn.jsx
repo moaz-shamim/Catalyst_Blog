@@ -14,12 +14,7 @@ export default function ThemeBtn() {
     const storedThemeMode = JSON.parse(localStorage.getItem("mode"));
 
     // Set the themeMode to the stored value if it exists, otherwise use the default value
-    dispatch(
-      storedThemeMode
-        ? storedThemeMode === "dark"
-          ? darkTheme()
-          : lightTheme()
-        : lightTheme()
+    dispatch(storedThemeMode? storedThemeMode === "dark" ? darkTheme() : lightTheme(): lightTheme()
     );
   }, []); // Empty dependency array to run the effect only once when the component mounts
 
@@ -39,7 +34,7 @@ export default function ThemeBtn() {
   };
   return (
     <>
-      <label className="relative  items-center cursor-pointer p-2   border-emerald-400 ">
+      <label className="relative  items-center cursor-pointer p-2">
         <input
           type="checkbox"
           value=""
@@ -71,11 +66,11 @@ export default function ThemeBtn() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              class="fill-slate-400"
+              class="fill-violet-300"
               d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z"
             />
             <path
-              class="fill-slate-500"
+              class="fill-violet-300"
               d="M12.5 5a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 5Z"
             />
           </svg>

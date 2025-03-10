@@ -83,8 +83,7 @@ export class DataBaseService {
     }
   }
 
-  // Get all Posts Servie Method
-  async getPosts(queries = [Query.equal("status", "active")]) {
+  async getPosts(queries = [ Query.equal("status", "active"), Query.limit(100) ] ) {
     try {
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,

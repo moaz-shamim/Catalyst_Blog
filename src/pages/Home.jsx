@@ -9,53 +9,42 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  console.log("posts",posts);
+  
+  const [isLoading, setIsLoading] = useState(true);
   const userStatus = useSelector((state) => state.auth.status);
-  // console.log(userStatus);
-
-
-  // const [filteredPosts, setfilteredPosts] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location);
-
   const filteredData = location.state ? location.state.data : null;
-
-  const filteredPosts = filteredData
-    ? posts.filter((post) => post.category === filteredData)
-    : posts.filter((post) => post.category === "Web Tech");
-
-  // console.log(filteredPosts);
-
-  // const firstPost = filteredPosts ? filteredPosts[0]:    posts[0];
-
-  // const restPost = filteredPosts ? filteredPosts.slice(1) : posts.slice(1);
-
+  const filteredPosts = filteredData ? posts.filter((post) => post.category === filteredData) : posts.filter((post) => post.category === "Web Tech"); 
   const firstPost = filteredPosts[0];
-
   const restPost = filteredPosts.slice(1);
 
-  // console.log(restPost);
-
-  // console.log(location);
-
-  // if (filteredData) {
-  //   console.log(location.state.data);
-  // } else {
-  //   console.log("data not loaded");
-  // }
-
-  // console.log(posts);
 
   useEffect(() => {
-    databaseService.getPosts().then((posts) => {
+    setIsLoading(true)
+    databaseService.getPosts([])
+    .then((posts) => {
       if (posts) {
+        console.log("posts",posts);
         setPosts(posts.documents);
       } else {
         setPosts([]);
       }
-    });
+    }).catch((error) => {
+      console.error("Error fetching posts:", error);
+      setPosts([]);
+    })
+    .finally(() => setIsLoading(false));
   }, [userStatus]);
 
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-[60vh] flex items-center justify-center">
+      <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-600"></div>      </div>
+    );
+  }
   if (posts.length === 0) {
     return (
       <div className="w-full  mt-4 text-center">

@@ -8,10 +8,10 @@ const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    darkTheme: (state, action) => {
+    darkTheme: (state) => {
       state.themeMode = "dark";
     },
-    lightTheme: (state, action) => {
+    lightTheme: (state) => {
       state.themeMode = "light";
     },
   },

@@ -5,36 +5,102 @@ import storageService from "../appwrite/storage";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 
 export default function Post() {
-  const [post, setPost] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
-
+  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const userData = useSelector((state) => state.auth.userData);
-
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+  // useEffect(() => {
+  //   if (slug) {
+  //     databaseService.getPost(slug).then((post) => {
+  //       if (post) setPost(post);
+  //       else navigate("/");
+  //     });
+  //   } else navigate("/");
+  // }, [slug, navigate]);
+
   useEffect(() => {
-    if (slug) {
-      databaseService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
+    if (!slug) {
+      navigate("/");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null); // Reset error state before fetching
+
+    databaseService
+      .getPost(slug)
+      .then((post) => {
+        if (post) {
+          setPost(post);
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching post:", err);
+        setError("Failed to load post. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-    } else navigate("/");
   }, [slug, navigate]);
 
+
   const deletePost = () => {
-    databaseService.deletePost(post.$id).then((status) => {
-      if (status) {
-        storageService.deleteFile(post.featuredImage);
-        navigate("/");
-      }
-    });
+    setIsLoading(true); // Start loading
+
+    databaseService
+      .deletePost(post.$id)
+      .then((status) => {
+        if (status) {
+          // Delete the featured image from storage
+          storageService.deleteFile(post.featuredImage);
+
+          // Show success toast notification
+          toast.success("Post deleted successfully!");
+
+          // Navigate to the home page
+          navigate("/");
+        } else {
+          // Show error toast notification if deletion fails
+          toast.error("Failed to delete the post. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        }
+      })
+      .catch((error) => {
+        // Show error toast notification if there's an exception
+        toast.error("An error occurred while deleting the post.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        console.error("Error deleting post:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Stop loading regardless of success or failure
+      });
   };
 
+  if (isLoading) {
+    return (
+      <div className="w-full h-[60vh] flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-600">
+        </div>
+      </div>
+    );
+  }
+
   return post ? (
-    <div className="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-800 dark:text-gray-100  text-gray-800 flex flex-col items-center">
+    <div className="p-5 sm:p-10 md:p-16 dark:bg-gray-800 dark:text-gray-100  text-gray-800">
       <div className="flex flex-col max-w-3xl mx-auto overflow-hidden rounded pb-5">
         <img
           src={storageService.getFilePreview(post.featuredImage)}
