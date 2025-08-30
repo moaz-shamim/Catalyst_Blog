@@ -19,7 +19,7 @@ export default function PostCard(
     <Link to={`/post/${$id}`}>
     <div  className="max-w-sm  mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900 bg-gray-50 ">
       <img
-        src={storageService.getFilePreview(featuredImage)}
+        src={storageService.getFileView(featuredImage)}
         alt={title}
         className="object-cover w-full rounded h-44 dark:bg-gray-700 bg-gray-500"
       />

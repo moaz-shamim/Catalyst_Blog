@@ -11,6 +11,7 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   console.log("posts",posts);
   
+  
   const [isLoading, setIsLoading] = useState(true);
   const userStatus = useSelector((state) => state.auth.status);
   const location = useLocation();
@@ -19,8 +20,6 @@ export default function Home() {
   const filteredPosts = filteredData ? posts.filter((post) => post.category === filteredData) : posts.filter((post) => post.category === "Web Tech"); 
   const firstPost = filteredPosts[0];
   const restPost = filteredPosts.slice(1);
-
-
   useEffect(() => {
     setIsLoading(true)
     databaseService.getPosts([])
@@ -85,7 +84,7 @@ export default function Home() {
             to={`/post/${firstPost.$id}`}
           >
             <img
-              src={storageService.getFilePreview(firstPost.featuredImage)}
+              src={storageService.getFileView(firstPost.featuredImage)}
               alt=""
               className=" w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-gray-500 bg-gray-500"
             />

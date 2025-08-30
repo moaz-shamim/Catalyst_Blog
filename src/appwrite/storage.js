@@ -38,6 +38,11 @@ export class StorageService {
   // Preview File from storage service method
   getFilePreview(fileId) {
     return this.storage.getFilePreview(conf.appwriteBucketId, fileId);
+  
+  }
+  // View original File from storage service method without modification
+  getFileView(fileId) {
+    return this.storage.getFileView(conf.appwriteBucketId, fileId);
   }
 }
 

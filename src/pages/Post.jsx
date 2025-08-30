@@ -103,7 +103,7 @@ export default function Post() {
     <div className="p-5 sm:p-10 md:p-16 dark:bg-gray-800 dark:text-gray-100  text-gray-800">
       <div className="flex flex-col max-w-3xl mx-auto overflow-hidden rounded pb-5">
         <img
-          src={storageService.getFilePreview(post.featuredImage)}
+          src={storageService.getFileView(post.featuredImage)}
           alt={post.title}
           className="w-full h-60 sm:h-96 dark:bg-gray-500 object-cover"
         />

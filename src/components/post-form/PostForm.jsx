@@ -245,7 +245,7 @@ export default function PostForm({ post }) {
             {post && (
               <div className="col-span-full sm:col-span-3 mb-4">
                 <img
-                  src={storageService.getFilePreview(post.featuredImage)}
+                  src={storageService.getFileView(post.featuredImage)}
                   alt={post.title}
                   className="rounded-lg"
                 />
